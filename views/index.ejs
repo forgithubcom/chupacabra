@@ -1,0 +1,79 @@
+<!-- views/pages/index.ejs -->
+
+<!DOCTYPE html>
+<html lang="en" ng-app="addApp">
+<head>
+<style>
+[ng\:cloak], [ng-cloak], .ng-cloak {
+  display: none !important;
+}
+
+</style>
+
+    </head>
+<body class="container">
+
+    <header>
+           </header>
+
+    <main>
+        <div>
+ <form action="video" method="post" class="video" ng-submit="submit($event)" ng-controller="addController">
+<div>
+  <br>Vimeo ID:<br>
+  <input type="text" name="vimeoID" ng-change="myChange()" ng-model="vimeoID">
+  <input type="button" class="addButton" value="Add" ng-click="addItem()">
+  <span style="color:red" ng-show="messageForm" ng-cloak>Please input at least one video before</span>
+  <div id="container"></div>
+</div>
+  <input type="submit" value="Video">
+</form>
+<form  action="matterport" method="post">
+<div>
+  Matterport 360 ID:<br>
+  <input type="text" name="matterport360ID"><br>
+  <input type="submit" value="360 view"> 
+</div>
+</form> 
+        </div>
+    </main>
+
+    <footer>
+           </footer>
+    
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script>
+var addApp = angular.module("addApp", []);
+    addApp.controller("addController", function ($scope, $compile) {
+    $scope.addItem = function () {
+           if ($scope.vimeoID != undefined) {
+               var htmlCode = '<div class="videoItem"><br>Vimeo ID:<br><input type="text" name="vimeoID" value="'+$scope.vimeoID+'" required><input type="button" ng-click="removeItem($event)" style="color:red" class="removeButton" value="&#x2718"></div>';
+               var item = $compile(htmlCode)($scope);
+               $scope.vimeoID = undefined;
+               var videoContainer = angular.element(document.querySelector("#container"));
+               var newDiv = angular.element(item);
+               videoContainer.append(newDiv);
+           } else {
+                   $scope.messageForm = true;
+                  }
+    }
+    $scope.removeItem = function ($event) {
+           angular.element($event.currentTarget).parent().remove();
+    }
+    $scope.submit = function($event) {
+           var videoContainer = angular.element(document.querySelector("#container"));
+           if ((!(videoContainer.children().length)) && (!$scope.vimeoID)) {
+              $scope.messageForm = true;
+              $event.preventDefault();
+          }
+    }
+    $scope.myChange = function() {
+           $scope.messageForm = false;
+    }
+});
+</script>
+
+</body>
+</html>
+
+
