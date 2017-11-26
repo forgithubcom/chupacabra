@@ -8,6 +8,17 @@
   display: none !important;
 }
 
+#vimeo_1, #matterport_2, #calculator {
+display: none;
+}
+#vimeo_1_label, #matterport_2_label, #calculator_label {
+cursor: pointer;
+}
+ .video, .matterport {
+display:none;
+}
+#vimeo_1:checked  ~  .video {display: block}
+#matterport_2:checked ~ .matterport  {display: block}
 </style>
 
     </head>
@@ -18,8 +29,15 @@
 
     <main>
         <div>
- <form action="video" method="post" class="video" ng-submit="submit($event)" ng-controller="addController">
-<div>
+ <input id="vimeo_1" type="radio" name="tab" checked="checked" /> 	  				 	 	 	    		  	   		  		
+ <label for="vimeo_1" id="vimeo_1_label">Vimeo</label> 	  		
+ <input id="matterport_2" type="radio" name="tab" /> 	  				 	 	 	    		  	   		  		
+<label for="matterport_2" id="matterport_2_label">Matterport</label>
+ <input id="calculator" type="radio" name="tab" /> 	  				 	 	 	    		  	   		  		
+ <label for="calculator" id="calculator_label">Calculator</label> 
+ 
+ <form action="video" method="post" class="video" ng-submit="submit($event)" ng-controller="addController">		 	 	 	    		  	   		  		
+ <div>
   <br>Vimeo ID:<br>
   <input type="text" name="vimeoID" ng-change="myChange()" ng-model="vimeoID">
   <input type="button" class="addButton" value="Add" ng-click="addItem()">
@@ -28,13 +46,17 @@
 </div>
   <input type="submit" value="Video">
 </form>
-<form  action="matterport" method="post">
+ 
+<form  action="matterport" method="post" class="matterport"> 	  				 	 	 	    		  	   		  		
 <div>
   Matterport 360 ID:<br>
   <input type="text" name="matterport360ID"><br>
   <input type="submit" value="360 view"> 
 </div>
-</form> 
+</form>
+
+<div class="calculator1"> 
+</div>
         </div>
     </main>
 
