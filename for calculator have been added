@@ -1,0 +1,76 @@
+[1mdiff --git a/views/index.ejs b/views/index.ejs[m
+[1mindex aedee99..23d592b 100644[m
+[1m--- a/views/index.ejs[m
+[1m+++ b/views/index.ejs[m
+[36m@@ -14,11 +14,22 @@[m [mdisplay: none;[m
+ #vimeo_1_label, #matterport_2_label, #calculator_label {[m
+ cursor: pointer;[m
+ }[m
+[31m- .video, .matterport {[m
+[32m+[m[32m .video, .matterport, .calculator1 {[m
+ display:none;[m
+ }[m
+ #vimeo_1:checked  ~  .video {display: block}[m
+ #matterport_2:checked ~ .matterport  {display: block}[m
+[32m+[m[32m#calculator:checked ~ .calculator1  {display: block}[m
+[32m+[m
+[32m+[m[32mdiv {[m
+[32m+[m[32m border: 1px solid black;[m
+[32m+[m[32m}[m[41m 	  [m
+[32m+[m[32m.calculator1 {[m
+[32m+[m[32mwidth: 200px;[m
+[32m+[m[32m}[m
+[32m+[m[32m.M {[m
+[32m+[m[32mwidth: 100%;[m
+[32m+[m[32m}[m
+ </style>[m
+ [m
+     </head>[m
+[36m@@ -56,6 +67,47 @@[m [mdisplay:none;[m
+ </form>[m
+ [m
+ <div class="calculator1"> [m
+[32m+[m[32m<input type="text">[m
+[32m+[m[32m<div class="M">[m
+[32m+[m[32m<input type="button" value="MC">[m
+[32m+[m[32m<input type="button" value="MR">[m
+[32m+[m[32m<input type="button" value="MS">[m
+[32m+[m[32m<input type="button" value="M+">[m
+[32m+[m[32m<input type="button" value="M-">[m
+[32m+[m[32m</div>[m
+[32m+[m[32m<div class="M">[m
+[32m+[m[32m<input type="button" value="<-">[m
+[32m+[m[32m<input type="button" value="CE">[m
+[32m+[m[32m<input type="button" value="C">[m
+[32m+[m[32m<input type="button" value="+-">[m
+[32m+[m[32m<input type="button" value="V">[m
+[32m+[m[32m</div>[m
+[32m+[m[32m<div class="M">[m
+[32m+[m[32m<input type="button" value="7">[m
+[32m+[m[32m<input type="button" value="8">[m
+[32m+[m[32m<input type="button" value="9">[m
+[32m+[m[32m<input type="button" value="/">[m
+[32m+[m[32m<input type="button" value="%">[m
+[32m+[m[32m</div>[m
+[32m+[m[32m<div class="M">[m
+[32m+[m[32m<input type="button" value="4">[m
+[32m+[m[32m<input type="button" value="5">[m
+[32m+[m[32m<input type="button" value="6">[m
+[32m+[m[32m<input type="button" value="*">[m
+[32m+[m[32m<input type="button" value="1/x">[m
+[32m+[m[32m</div>[m
+[32m+[m[32m<div class="M">[m
+[32m+[m[32m<input type="button" value="1">[m
+[32m+[m[32m<input type="button" value="2">[m
+[32m+[m[32m<input type="button" value="3">[m
+[32m+[m[32m<input type="button" value="-">[m
+[32m+[m[32m<input type="button" value="=">[m
+[32m+[m[32m</div>[m
+[32m+[m[32m<div class="M">[m
+[32m+[m[32m<input type="button" value="0">[m
+[32m+[m[32m<input type="button" value=",">[m
+[32m+[m[32m<input type="button" value="+">[m
+[32m+[m[32m</div>[m
+ </div>[m
+         </div>[m
+     </main>[m
