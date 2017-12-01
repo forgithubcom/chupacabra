@@ -22,15 +22,38 @@ display:none;
 #calculator:checked ~ .calculator1  {display: block}
 
 div {
- border: 1px solid black;
+/* border: 1px solid black; */
 } 	  
 .calculator1 {
-width: 200px;
+width: 295px;
+background:#ECF1EF;
+padding:5px;
+border: 1px solid gray; 	
 }
+.T {
+width: 295px;
+margin: 0 auto;
+margin-top:5px;
+margin-bottom:5px;
+}
+.T input {
+box-sizing: border-box;
+width:100%;
+padding:10px;
+text-align:right;
+} 
 .M {
 width: 100%;
+margin:5px; 
 }
+.M input {
+width: 55px;
+height:45px;
+margin: 0;
+padding:0;
+} 	  	
 </style>
+
 
     </head>
 <body class="container">
@@ -67,7 +90,9 @@ width: 100%;
 </form>
 
 <div class="calculator1"> 
+<div class="T">
 <input type="text">
+</div>
 <div class="M">
 <input type="button" value="MC">
 <input type="button" value="MR">
@@ -76,11 +101,11 @@ width: 100%;
 <input type="button" value="M-">
 </div>
 <div class="M">
-<input type="button" value="<-">
+<input type="button" value="&#10229">
 <input type="button" value="CE">
 <input type="button" value="C">
-<input type="button" value="+-">
-<input type="button" value="V">
+<input type="button" value="&#177">
+<input type="button" value="&#8730">
 </div>
 <div class="M">
 <input type="button" value="7">
@@ -105,7 +130,7 @@ width: 100%;
 </div>
 <div class="M">
 <input type="button" value="0">
-<input type="button" value=",">
+<input type="button" value=".">
 <input type="button" value="+">
 </div>
 </div>
@@ -114,7 +139,81 @@ width: 100%;
 
     <footer>
            </footer>
-    
+
+<script>
+function buttonValue () {
+var val = this.value; 
+alert(val);
+if (val > 0 && val < 10 || val=='.') {
+var scr = document.querySelectorAll(".T input[type=text]");
+scr[0].value = scr[0].value + val;
+
+   } else {
+switch (val) {
+    case "MC":
+        alert("Квадратный корень");
+        break;
+    case "MR":
+        alert("Квадратный корень");
+        break;
+	    case "MS":
+        alert("Квадратный корень");
+        break;
+	    case "M+":
+        alert("Квадратный корень");
+        break;
+    case "M-":
+        alert("Квадратный корень");
+        break;
+    case "\u27f5":
+        alert("Ctrelka");
+        break;
+    case "CE":
+        alert("Квадратный корень");
+        break;
+    case "C":
+        alert("Квадратный корень");
+        break;
+    case "\xB1":
+        alert("Квадратный корень");
+        break;
+    case "\u221A":
+	var scr = document.querySelectorAll(".T input[type=text]");
+var reg = scr[0].value;
+scr[0].value = Math.sqrt(reg);
+        alert("Квадратный корень");
+        break;
+    case "/":
+        alert("Квадратный корень");
+        break;
+    case "%":
+        alert("Квадратный корень");
+        break;
+    case "*":
+        alert("Квадратный корень");
+        break;
+    case "1/x":
+        alert("Квадратный корень");
+        break;
+    case "-":
+        alert("Квадратный корень");
+        break;
+    case "+":
+        alert("Квадратный корень");
+        break;		
+		case "=":
+        alert("Квадратный корень");
+        break;		
+}
+} 	  		 
+} 	
+var buttons = document.querySelectorAll(".M input[type=button]");
+for (var i=0;i<buttons.length;i++) {
+         buttons[i].addEventListener('click',buttonValue,false);
+       } 
+	   
+</script>
+		   
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 <script>
 var addApp = angular.module("addApp", []);
