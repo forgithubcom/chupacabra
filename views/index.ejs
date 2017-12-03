@@ -141,15 +141,86 @@ padding:0;
            </footer>
 
 <script>
+var reg = undefined;
+var operator = undefined;
+var result = undefined;
+var initial = true;
+var calculator = {
+
+"C" : function (reg) {
+operator = undefined;
+initial = true; 
+result = undefined;
+return document.querySelectorAll(".T input[type=text]")[0].value = 0;
+}, 
+
+"\u221A" : function (reg) {
+return result = Math.sqrt(reg);
+},
+
+"1/x" : function (reg) {
+return result = 1 / reg;
+},
+ 	
+"\xB1" : function (reg) {
+return result = reg * -1;
+}, 
+
+
+"/" : function (reg) {
+if (result === undefined) {
+result = reg;
+} else {
+return result = result / reg;
+}
+},
+
+"*" : function (reg) {
+if (result === undefined) {
+result = reg;
+} else {
+return result = result * reg;
+} 
+},
+
+"-" : function (reg) {
+if (result === undefined) {
+result = reg;
+} else {
+return result = result - reg;
+} 
+},
+
+"+" : function (reg) {
+if (result === undefined) {
+result = reg;
+} else {
+return result = result + reg;
+} 
+},
+
+}; 	  			 	
 function buttonValue () {
 var val = this.value; 
-alert(val);
-if (val > 0 && val < 10 || val=='.') {
+//alert(val);
+if (val >= 0 && val <=9 || val=='.') {
 var scr = document.querySelectorAll(".T input[type=text]");
-scr[0].value = scr[0].value + val;
 
+if (initial) {
+initial = false;
+scr[0].value = val;
+} else {
+scr[0].value = scr[0].value + val;
+}
    } else {
-switch (val) {
+   var scr = document.querySelectorAll(".T input[type=text]");
+var reg = Number (scr[0].value);
+initial = true;
+var r = calculator [val](reg, result);
+if (r || r == 0) {
+scr[0].value = r; 
+}  
+/* switch (val) {
     case "MC":
         alert("Квадратный корень");
         break;
@@ -177,9 +248,7 @@ switch (val) {
     case "\xB1":
         alert("Квадратный корень");
         break;
-    case "\u221A":
-	var scr = document.querySelectorAll(".T input[type=text]");
-var reg = scr[0].value;
+    case "\u221A":	
 scr[0].value = Math.sqrt(reg);
         alert("Квадратный корень");
         break;
@@ -204,7 +273,7 @@ scr[0].value = Math.sqrt(reg);
 		case "=":
         alert("Квадратный корень");
         break;		
-}
+}*/
 } 	  		 
 } 	
 var buttons = document.querySelectorAll(".M input[type=button]");
