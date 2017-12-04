@@ -93,13 +93,7 @@ padding:0;
 <div class="T">
 <input type="text">
 </div>
-<div class="M">
-<input type="button" value="MC">
-<input type="button" value="MR">
-<input type="button" value="MS">
-<input type="button" value="M+">
-<input type="button" value="M-">
-</div>
+<div
 <div class="M">
 <input type="button" value="&#10229">
 <input type="button" value="CE">
@@ -145,14 +139,23 @@ var reg = undefined;
 var operator = undefined;
 var result = undefined;
 var initial = true;
+var decimal = true; 
 var calculator = {
 
 "C" : function (reg) {
 operator = undefined;
-initial = true; 
+initial = true;
+decimal = true;
 result = undefined;
 return document.querySelectorAll(".T input[type=text]")[0].value = 0;
 }, 
+
+"\u27f5" : function (reg) {
+alert(reg);
+reg=String (reg);
+result = reg.slice(0, -1);
+return document.querySelectorAll(".T input[type=text]")[0].value = result;
+},
 
 "\u221A" : function (reg) {
 return result = Math.sqrt(reg);
@@ -203,8 +206,9 @@ return result = result + reg;
 function buttonValue () {
 var val = this.value; 
 //alert(val);
-if (val >= 0 && val <=9 || val=='.') {
 var scr = document.querySelectorAll(".T input[type=text]");
+if (val >= 0 && val <=9) {
+//var scr = document.querySelectorAll(".T input[type=text]");
 
 if (initial) {
 initial = false;
@@ -212,11 +216,17 @@ scr[0].value = val;
 } else {
 scr[0].value = scr[0].value + val;
 }
+} else if(val=='.'){
+if (decimal == true && initial == false) {
+scr[0].value = scr[0].value + val; 
+decimal = false;
+}
    } else {
-   var scr = document.querySelectorAll(".T input[type=text]");
+   //var scr = document.querySelectorAll(".T input[type=text]");
 var reg = Number (scr[0].value);
 initial = true;
-var r = calculator [val](reg, result);
+decimal = true; 
+var r = calculator [val](reg);
 if (r || r == 0) {
 scr[0].value = r; 
 }  
