@@ -23,16 +23,14 @@ div {
 /* border: 1px solid black; */
 } 	  
 .calculator1 {
-width: 295px;
+width: 300px;
 background:#ECF1EF;
 padding:5px;
 border: 1px solid gray; 	
 }
 .T {
-width: 295px;
-margin: 0 auto;
-margin-top:5px;
-margin-bottom:5px;
+width: 290px;
+margin:5px;
 }
 .T input {
 box-sizing: border-box;
@@ -51,18 +49,7 @@ margin: 0;
 padding:0;
 }
 
- .M1 {
-width: 100%;
-margin:5px; 
-}
-.M1 input {
-width: 55px;
-height:45px;
-margin: 0;
-padding:0;
-} 
-
-.M1 :first-child {
+.calculator1 :last-child :first-child {
 width: 115px;
 height:45px;
 margin: 0;
@@ -109,7 +96,6 @@ padding:0;
 <div class="T">
 <input type="text">
 </div>
-<div
 <div class="M">
 <input type="button" value="&#10229">
 <input type="button" value="off">
@@ -138,135 +124,76 @@ padding:0;
 <input type="button" value="-">
 <input type="button" value="π">
 </div>
-<div class="M1">
+<div class="M">
 <input type="button" value="0">
 <input type="button" value=".">
 <input type="button" value="+">
 <input type="button" value="=">
 </div>
 </div>
-        </div>
     </main>
 
     <footer>
            </footer>
 
 <script>
-var operator = undefined;
-var result = undefined;
+var register = [];
 var initial = true;
 var scr = document.querySelectorAll(".T input[type=text]"); 
-//fix
-
-function operatorChanged (val) {
-         switch (val) {
-	             case '+':
-	             case '-':
-	             case '*':
-	             case '/':
-         if (operator != undefined && operator != val) {
-             var res = calculator [operator](Number (scr[0].value));
-             result = undefined;
-             scr[0].value = res;
-         }
-         operator = val;
-         }
-         return operator;
-}
-
+//global variables 
+//main functions of calculator
 var calculator = {
-              "C" : function (reg) {
-                    operator = undefined;
-                    initial = true;
-                    result = undefined;
-                    return scr[0].value = 0;
+              "C" : function (reg1) {
+                    register = [];
+                    return 0;
               },
 			  
-              "off" : function (reg) {
-                      operator = undefined;
-                      initial = true;
-                      result = undefined;
-                      return scr[0].value = '';
+              "off" : function (reg1) {
+                      register = [];
+                      return '';
               }, 
 			  
-              "\u27f5" : function (reg) {
-                         reg=String (reg);
-                         reg = reg.slice(0, -1);
-                         initial = false;
-                         result = undefined; 
-                         return scr[0].value = reg;
+              "\u27f5" : function (reg1) {
+                         reg1=String (reg1);
+                         reg1 = reg1.slice(0, -1);
+                         return reg1;
               },
 			  
-              "\u221A" : function (reg) {
-                         return scr[0].value = Math.sqrt(reg);
+              "\u221A" : function (reg1) {
+                         return Math.sqrt(reg1);
               },
 			  
-              "1/x" : function (reg) {
-                      return scr[0].value = 1 / reg;
+              "1/x" : function (reg1) {
+                      return 1 / reg1;
               },
 
-              "π" : function (reg) {
-                    return scr[0].value =Math.PI;
+              "π" : function (reg1) {
+                    return Math.PI;
               }, 
  	
-              "\xB1" : function (reg) {
-                       return scr[0].value = reg * -1;
+              "\xB1" : function (reg1) {
+                       return scr[0].value = reg1 * -1;
               }, 
 			  
-              "/" : function (reg) {
-                    if (result === undefined) {
-                        result = reg;
-                    } else {
-                      return result = result / reg;
-                    }
+              "/" : function (reg1, reg2) {
+                    return reg2 / reg1;
               },
 			  
-              "*" : function (reg) {
-                    if (result === undefined) {
-                        result = reg;
-                    } else {
-                      return result = result * reg;
-                    } 
+              "*" : function (reg1, reg2) {
+                    return reg1 * reg2;
               },
 			  
-              "-" : function (reg) {
-                    if (result === undefined) {
-                        result = reg;
-                    } else {
-                      return result = result - reg;
-                    } 
+              "-" : function (reg1, reg2) {
+                    return reg2 - reg1; 
               },
 			  
-              "+" : function (reg) {
-                    if (result === undefined) {
-                        result = reg;
-                    } else {
-                      return result = result + reg;
-                    } 
+              "+" : function (reg1, reg2) {
+                    return reg1 + reg2; 
               },
 
-              "=" : function (reg) {
-                    if (result != undefined) {
-                        var res = calculator [operator](reg);
-                        result = undefined;
-                        initial = true;
-                        operator = undefined;
-                        return res;
-                    }
-              },
+};
 
-              "%" : function (reg) {
-                    if (result != undefined) {
-                    reg = result*(reg / 100);
-                    var res = calculator [operator](reg);
-                    result = undefined;
-                    initial = true;
-                    operator = undefined;
-                    return res;
-                    }
-              },
-
-}; 	  			 	
+//calculator keys  			 	
 function buttonValue () {
          var val = this.value; 
          switch (val) {
@@ -279,50 +206,71 @@ function buttonValue () {
                  case '7':
                  case '8':
                  case '9':
-                 case '0': if (initial) {
-                               initial = false;
-                               scr[0].value = val;
-                               } else {
-                               scr[0].value = scr[0].value + val;
-                           }
-                           break;
+                 case '0': 
+                         if (initial || scr[0].value == "0") {
+                             initial = false;
+                             scr[0].value = val;
+                             } else {
+                                    scr[0].value = scr[0].value + val;
+                         }
+                         break;
 
                  case '.':
-                           if (scr[0].value.indexOf(".")==-1 && initial == false) {
-                               scr[0].value = scr[0].value + val;
-                           }
-                           if (scr[0].value.indexOf(".")==-1 && initial == true) {
-                               scr[0].value = '0' + val;
-                           }
-                           initial = false;  
-                           break;
+                          if (scr[0].value.indexOf(".")==-1 && initial == false) {
+                              scr[0].value = scr[0].value + val;
+                          }
+                          if (scr[0].value.indexOf(".")==-1 && initial == true) {
+                              scr[0].value = '0' + val;
+                          }
+                          initial = false;  
+                          break;
 
                  case '+':
                  case '-':
                  case '*':
                  case '/':
+                 case "=":
+                 case "%":
+                          if (initial) {
+			      register[register.length-1]=val;
+                              register[register.length-2]=scr[0].value;
+			  } else {
+	                         register.push(String(scr[0].value), val);
+	                  }
+                          initial=true;
+	                  var op1 = Number (register[register.length-2]);
+                          var operator = register[register.length-3];
+                          var op2 = Number (register[register.length-4]);
+
+                          if (operator == undefined) {
+                              break;
+                              }
+                          if (val == "%") {
+                              op1 = op1 * (op2 / 100)
+                          }
+
+                          op1 = calculator [operator](op1, op2);
+                          register[register.length-2] = op1;
+                          scr[0].value = op1;
+
+                          if (val == "=" || val == "%") {                          
+                          register = [];
+                          }
+                          break;
                  case "\u221A":
                  case "1/x":
                  case "π":
                  case "\xB1":
-                 case "=":
-                 case "%":
                  case "C":
                  case "off":
                  case "\u27f5":
-                             initial = true;
-                             operator = operatorChanged(val);
-                             var reg = scr[0].value;
-                             if (reg.slice(-1)!=".") {
-                                 reg = Number (reg);
-                             } 
-                             var r = calculator [val](reg);
-                             if (r || r == 0) {
-                                 scr[0].value = r; 
-                              }  
-         } 	  		 
-} 	
-var buttons = document.querySelectorAll(".M input[type=button], .M1 input[type=button]");
+                              scr[0].value = calculator [val](scr[0].value);
+                              (val=="C"||val=="off")?initial=true:initial = false;
+                 
+				
+         } 	
+}
+var buttons = document.querySelectorAll(".M input[type=button]");
 for (var i=0;i<buttons.length;i++) {
      buttons[i].addEventListener('click',buttonValue,false);
 } 
